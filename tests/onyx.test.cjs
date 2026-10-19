@@ -155,3 +155,14 @@ test('changing the voice cancels pending old audio and keeps the device fallback
   assert.equal(reopened.api.settings.provider, 'browser');
   assert.equal(reopened.api.settings.voice, 'af_heart');
 });
+
+test('Heart recommendation is actionable and does not overwrite saved voices on load', () => {
+  const app = setup({ initial: { provider: 'onyx', voice: 'bm_george' } });
+  assert.equal(app.api.settings.voice, 'bm_george');
+  const button = { disabled: false, dataset: { action: 'voice-heart' } };
+  for (const listener of app.listeners.click) listener({ target: { closest: () => button } });
+  assert.equal(app.api.settings.voice, 'af_heart');
+  assert.match(app.node('#voice-provider-label').textContent, /Heart.*рекомендуємо/);
+  assert.equal(JSON.parse(app.values.get('wordlab.voicebox.v1')).voice, 'af_heart');
+  assert.match(html, /value="af_heart">Heart · рекомендуємо/);
+});
