@@ -2,6 +2,7 @@
 export const KOKORO_MODULE = 'https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/dist/kokoro.web.js';
 export const MODEL_ID = 'onnx-community/Kokoro-82M-v1.0-ONNX';
 export const VOICE_ID = 'am_onyx';
+export const VOICE_IDS = Object.freeze(['am_onyx', 'bm_george', 'af_heart']);
 
 // PCM16 WAV plays on mobile browsers as well as desktop browsers.
 export function pcm16Wav(samples, sampleRate) {
@@ -51,27 +52,27 @@ export function createOnyxWorker({ send, loadModule = () => import(KOKORO_MODULE
     }
     return modelPromise;
   }
-  async function generate(id, text) {
+  async function generate(id, text, voice) {
     if (id !== latest) return;
     try {
       const tts = await model(id);
       if (id !== latest) return;
       send({ id, type: 'generating' });
-      const audio = await tts.generate(text, { voice: VOICE_ID, speed: 1 });
+      const audio = await tts.generate(text, { voice, speed: 1 });
       if (id !== latest) return;
       const buffer = pcm16Wav(audio.audio, audio.sampling_rate);
       send({ id, type: 'audio', buffer }, [buffer]);
     } catch {
-      if (id === latest) send({ id, type: 'error', message: 'Не вдалося запустити Onyx у цьому браузері. Перевір інтернет і повтори спробу або обери голос пристрою.' });
+      if (id === latest) send({ id, type: 'error', message: 'Не вдалося запустити AI-голос у цьому браузері. Перевір інтернет і повтори спробу або обери голос пристрою.' });
     }
   }
   return message => {
     if (message?.type === 'cancel') { if (latest === message.id) latest = null; return; }
-    const { id, text } = message || {};
-    if (!Number.isSafeInteger(id) || typeof text !== 'string' || !text.trim() || text.length > 200) return;
+    const { id, text, voice = VOICE_ID } = message || {};
+    if (!Number.isSafeInteger(id) || !VOICE_IDS.includes(voice) || typeof text !== 'string' || !text.trim() || text.length > 200) return;
     latest = id;
     send({ id, type: ready ? 'queued' : 'loading' });
-    queue = queue.catch(() => {}).then(() => generate(id, text));
+    queue = queue.catch(() => {}).then(() => generate(id, text, voice));
   };
 }
 
