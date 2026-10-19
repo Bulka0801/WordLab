@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#58416e">
 <title>WordLab — особистий простір для слів</title>
+<script id="theme-bootstrap">
+(()=>{let preference='system';try{const saved=localStorage.getItem('wordlab.theme.v1');if(['system','light','dark'].includes(saved))preference=saved}catch{}const dark=preference==='dark'||preference==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.dataset.theme=dark?'dark':'light';document.documentElement.dataset.themePreference=preference;document.querySelector('meta[name="theme-color"]').setAttribute('content',dark?'#151119':'#f6f3f7')})();
+</script>
 <style>
 /* WordLab / ink & lilac. An editorial study desk. */
 :root{color-scheme:light;--ink:#2d2438;--muted:#716779;--line:#d8d1dd;--strong-line:#a69aaf;--blue:#58416e;--blue2:#3e2c52;--pale:#ece7f2;--bg:#f6f3f7;--white:#fffdff;--green:#33664e;--red:#9e4353;--pink:#a46780;--citron:#e8efbd;--font-display:Georgia,"Times New Roman",serif;--font-ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--font-mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--radius:5px;--shadow:0 14px 40px #37274008;font:15px/1.55 var(--font-ui);scroll-behavior:smooth}
@@ -120,11 +123,90 @@ input:not([type=radio]):not([type=checkbox]):not([type=file]),textarea,select{fo
 .voice-topline{display:flex;align-items:center;flex-wrap:wrap;gap:9px}.voice-topline strong{font:11px/1.5 var(--font-mono);color:var(--blue);margin-right:auto}.voice-topline .ghost{font-size:10px;padding:5px 9px;min-height:31px}.voice-status{font-size:11px;line-height:1.65;color:var(--muted);margin:8px 0 0;overflow-wrap:anywhere}.voice-status.bad{color:var(--red)}
 .voice-settings{margin-top:10px}.voice-settings>summary{cursor:pointer;font-size:11px;color:var(--blue);width:fit-content}.voice-settings form{margin-top:16px}.voice-settings .builder-grid{margin:0 0 14px}.voice-settings .field{font-size:11px}.voice-settings .format-note{margin:10px 0}.voice-settings code{overflow-wrap:anywhere}.voice-settings .editor-actions button{font-size:11px}.voice-status:empty{display:none}
 @media(max-width:520px){.voice-settings .builder-grid{grid-template-columns:1fr}.voice-topline strong{width:100%}.voice-controls{padding:11px 12px}}
+/* Night study desk: aubergine surfaces, lavender ink, quiet semantic accents. */
+.theme-picker{display:flex;align-items:center;flex-shrink:0}.top .theme-picker select{width:113px;min-height:36px;padding:7px 9px;font-size:11px;background:transparent;border-color:var(--line)}
+.voice-recommendation{display:flex;align-items:center;flex-wrap:wrap;gap:10px;border-left:2px solid var(--pink);padding:9px 12px;background:var(--pale);font-size:11px;color:var(--ink);margin:0 0 15px}.voice-recommendation .ghost{margin-left:auto;font-size:10px;min-height:32px;padding:5px 9px}
+:root[data-theme=dark]{color-scheme:dark;--ink:#f3edf8;--muted:#b6aac5;--line:#493b57;--strong-line:#796489;--blue:#d2b3f3;--blue2:#e3cbfa;--pale:#30263c;--bg:#151119;--white:#211b29;--green:#9dcdb0;--red:#f0a2b5;--pink:#dfa8bf;--citron:#40452a;--shadow:0 16px 44px #00000030}
+:root[data-theme=dark] ::selection{background:#73528d;color:#fff}
+:root[data-theme=dark] .intro h1 span{color:#c7a5e7}
+:root[data-theme=dark] .collection-item{background:var(--white);--collection-accent:var(--collection-dark-accent,var(--blue))!important;--collection-pale:var(--collection-dark-pale,var(--pale))!important}
+:root[data-theme=dark] .collection-item.is-selected{background:var(--collection-pale)}
+:root[data-theme=dark] .list-choice:hover{background:#ffffff08}
+:root[data-theme=dark] .list-count{background:#ffffff0a;border-color:var(--line)}
+:root[data-theme=dark] .drag-handle,:root[data-theme=dark] .delete-collection{color:var(--muted)}
+:root[data-theme=dark] .delete-collection:hover{background:#492937;color:var(--red)}
+:root[data-theme=dark] .collection-toast{background:#352533;border-color:#654456}
+:root[data-theme=dark] input:not([type=radio]):not([type=checkbox]):not([type=file]),:root[data-theme=dark] textarea,:root[data-theme=dark] select{background:#19141f;border-color:#89709d;color:var(--ink)}
+:root[data-theme=dark] input::placeholder,:root[data-theme=dark] textarea::placeholder{color:#ab9cb9}
+:root[data-theme=dark] .primary,:root[data-theme=dark] .secondary,:root[data-theme=dark] .ghost{background:var(--white);color:var(--blue);border-color:#89709d}
+:root[data-theme=dark] .primary{background:var(--blue);border-color:var(--blue);color:#261830}
+:root[data-theme=dark] .primary:hover:not(:disabled){background:var(--blue2);border-color:var(--blue2)}
+:root[data-theme=dark] .secondary:hover:not(:disabled),:root[data-theme=dark] .ghost:hover:not(:disabled){background:var(--pale);border-color:var(--blue)}
+:root[data-theme=dark] .new-list-button{background:var(--blue);border-color:var(--blue);color:#261830}
+:root[data-theme=dark] .new-list-button:hover{background:var(--blue2);color:#261830}
+:root[data-theme=dark] .study-toolbar .ghost{background:transparent;border-color:#89709d}
+:root[data-theme=dark] .study-toolbar .ghost:hover{background:var(--pale)}
+:root[data-theme=dark] .study-toolbar #focus-toggle[aria-pressed=true]{background:var(--blue);color:#261830}
+:root[data-theme=dark] .study-config{background:#261e30;border-color:var(--line)}
+:root[data-theme=dark] .source-choice{background:var(--white)}
+:root[data-theme=dark] .resume-note{background:#2e3224;border-color:#626b45;color:#e1e9c2}
+:root[data-theme=dark] .deck-choice.active{background:#352942;border-color:#9679b0}
+:root[data-theme=dark] .mode{background:var(--white)}
+:root[data-theme=dark] .mode-icon,:root[data-theme=dark] .mode-arrow{color:#b9a2cf}
+:root[data-theme=dark] .mode.active{background:var(--blue);border-color:var(--blue);color:#261830}
+:root[data-theme=dark] .mode.active .mode-icon,:root[data-theme=dark] .mode.active .mode-arrow{color:#493058}
+:root[data-theme=dark] .mode:hover:not(:disabled):not(.active){background:var(--pale);color:var(--ink)}
+:root[data-theme=dark] .step,:root[data-theme=dark] .seg{background:#2b2235}
+:root[data-theme=dark] .progress{background:#40324e}
+:root[data-theme=dark] .seg button.active{background:#483558;color:#f3e5ff;box-shadow:none}
+:root[data-theme=dark] .seg button:hover:not(.active){background:#392b45}
+:root[data-theme=dark] .question-tools>.ghost{background:transparent;border:0}
+:root[data-theme=dark] .icon-button.is-starred{background:#40452a;color:#e1ebb2;border-color:#7f8a52}
+:root[data-theme=dark] .hint-box{background:#303322;color:#e1e9c2;border-color:#69714a}
+:root[data-theme=dark] .hint-box small{color:#bdc79e}
+:root[data-theme=dark] .import-feedback.has-errors,:root[data-theme=dark] .answer.wrong,:root[data-theme=dark] .match-item.wrong{background:#3c2530;color:#ffc0d0;border-color:#a5687d}
+:root[data-theme=dark] .answer,:root[data-theme=dark] .match-item{background:#251e2d;border-color:#89709d}
+:root[data-theme=dark] .answer:hover:not(:disabled),:root[data-theme=dark] .match-item:hover:not(:disabled){background:#372940;border-color:#ad88c9}
+:root[data-theme=dark] .answer.correct,:root[data-theme=dark] .match-item.matched{background:#26382c;color:#b2e4bf;border-color:#65876a}
+:root[data-theme=dark] .match-item.selected{background:#41304f;border-color:var(--blue)}
+:root[data-theme=dark] .input-row input:disabled{background:#2a2232;color:var(--muted)}
+:root[data-theme=dark] .letter{background:#3b2b49;color:#eedbff;border-color:#9071aa;box-shadow:0 2px 0 #201728}
+:root[data-theme=dark] .letter:hover:not(:disabled){background:#50385f}
+:root[data-theme=dark] .win-stamp{background:#353e27;border-color:#85945b;color:#e2edba}
+:root[data-theme=dark] .word-table-scroll{background:var(--white)}
+:root[data-theme=dark] .word-table thead th{background:#362841;color:#dec9ee}
+:root[data-theme=dark] .word-table .word-number{color:#b9a4ca}
+:root[data-theme=dark] .word-table tbody tr:nth-child(even){background:#261f2e}
+:root[data-theme=dark] .word-table tbody tr:hover{background:#34283f}
+:root[data-theme=dark] .reveal-word{background:#30213e;color:#e0c4f6;border-color:#9b7ab4}
+:root[data-theme=dark] .reveal-word:hover{background:#473056}
+:root[data-theme=dark] .card-arrow{background:#2f233a;color:var(--blue);border-color:#89709d}
+:root[data-theme=dark] .card-arrow:hover:not(:disabled){background:#453252;border-color:var(--blue)}
+:root[data-theme=dark] .demo-front{background:linear-gradient(140deg,#4b355b,#34243f 68%,#291c34);border-color:#9979ad;box-shadow:inset 0 1px 0 #ffffff18,0 18px 32px #00000030}
+:root[data-theme=dark] .demo-back{background:linear-gradient(140deg,#392b46,#292031 68%,#211929);color:#f3edf8;border-color:#89729a;box-shadow:inset 0 1px 0 #ffffff12,0 18px 32px #00000030}
+:root[data-theme=dark] .demo-back small,:root[data-theme=dark] .demo-back em,:root[data-theme=dark] .demo-back>.card-face-footer{color:#d0bedf}
+:root[data-theme=dark] .demo-back:before{color:#b99bce}
+:root[data-theme=dark] .demo-back>.card-face-footer{border-color:#6b547b}
+:root[data-theme=dark] .demo-back>.card-copy-window{color:inherit;scrollbar-color:#ad96c1 #ffffff08}
+:root[data-theme=dark] .face:after,:root[data-theme=dark] .demo-face:after{background:radial-gradient(ellipse at var(--card-glare-x,28%) var(--card-glare-y,18%),#ffffff20 0%,#ffffff08 35%,transparent 65%)}
+:root[data-theme=dark] .paper-under{background:#33263d;border-color:#765a89;box-shadow:0 9px 20px #00000030}
+:root[data-theme=dark] .card-edge{background:repeating-linear-gradient(90deg,#6d567b 0px,#6d567b 1px,#44334f 1px,#44334f 2px);border-color:#8d70a080}
+:root[data-theme=dark] .card-edge-top,:root[data-theme=dark] .card-edge-bottom{background:repeating-linear-gradient(180deg,#6d567b 0px,#6d567b 1px,#44334f 1px,#44334f 2px)}
+:root[data-theme=dark] .card-reading-section{background:#35253f;border-color:#8c70a0;color:#f3edf8}
+:root[data-theme=dark] .card-reading-section+section{background:#281f31;border-color:#755c86;color:#f3edf8}
+:root[data-theme=dark] .app-dialog{border-color:#89709d;box-shadow:0 30px 100px #00000080}
+:root[data-theme=dark] .app-dialog::backdrop{background:#08050bb8}
+:root[data-theme=dark] .app-status{background:#30223b;color:#e5cef9;border-color:#9b7ab4;box-shadow:0 6px 30px #00000055}
+:root[data-theme=dark] .app-status.bad{background:#3c2530;color:#ffc0d0;border-color:#a5687d}
+:root[data-theme=dark] .focus-exit{background:#2b2035;color:var(--blue);border-color:#9474ad;box-shadow:0 4px 20px #00000040}
+@media(max-width:760px){.top .theme-picker{margin-left:auto}.top .count{flex:1;min-width:140px;width:auto;order:4}.top .theme-picker{order:3}}
+@media(max-width:420px){.top .brand{flex:1}.top .theme-picker{order:0}.top .top-nav{order:3;margin-left:0}.top .count{text-align:right;min-width:0}.top .theme-picker select{width:100px}}
+
 </style>
 </head>
 <body>
 <div class="shell">
-<header class="top"><div class="brand"><span class="logo" aria-hidden="true">w.</span> WordLab <span class="brand-note">Особистий<br>словник</span></div><nav class="top-nav" aria-label="Розділи"><a href="#vocabulary-panel">Колекції</a><a href="#practice">Практика ↗</a></nav><span class="count" id="total-label"></span></header>
+<header class="top"><div class="brand"><span class="logo" aria-hidden="true">w.</span> WordLab <span class="brand-note">Особистий<br>словник</span></div><nav class="top-nav" aria-label="Розділи"><a href="#vocabulary-panel">Колекції</a><a href="#practice">Практика ↗</a></nav><label class="theme-picker"><span class="sr-only">Тема оформлення</span><select id="theme-select" aria-label="Тема оформлення"><option value="system">◐ Системна</option><option value="light">☀ Світла</option><option value="dark">☾ Темна</option></select></label><span class="count" id="total-label"></span></header>
 <main>
 <div class="intro">
 <div class="hero-copy"><span class="club-tag">Особистий простір для англійської</span><h1>Слова, що<br><span>залишаються.</span></h1><p>Збирай власний словник і повертайся до слів, доки вони не стануть твоїми.</p><a class="hero-link" href="#practice">Перейти до практики <span aria-hidden="true">↗</span></a></div>
@@ -169,7 +251,7 @@ connectivity - зв'язок</pre>
 <div class="voice-topline"><strong id="voice-provider-label">Onyx · американська англійська</strong><button class="ghost" type="button" data-action="voice-test">Проба голосу</button><button class="secondary" type="button" id="voice-play-ready" data-action="voice-play-ready" hidden>▶ Відтворити запис</button><button class="ghost" type="button" id="voice-stop" data-action="voice-stop" hidden>Зупинити ■</button></div>
 <p id="voice-status" class="voice-status" role="status" aria-live="polite">Натисни 🔊 — Onyx працює прямо на сайті. Перший запуск потребує інтернету й може тривати довше.</p>
 <details class="voice-settings" id="voice-settings"><summary>Налаштувати озвучення</summary>
-<form id="voice-settings-form"><label class="field">Голос<select id="voice-provider"><option value="am_onyx">Onyx · чоловічий · США</option><option value="bm_george">George · чоловічий · Велика Британія</option><option value="af_heart">Heart · жіночий · США</option><option value="browser">Голос пристрою · швидкий старт</option></select></label>
+<form id="voice-settings-form"><div class="voice-recommendation"><span>♡ Рекомендуємо <strong>Heart</strong> для практики англійської.</span><button class="ghost" type="button" data-action="voice-heart">Обрати Heart</button></div><label class="field">Голос<select id="voice-provider"><option value="am_onyx">Onyx · чоловічий · США</option><option value="bm_george">George · чоловічий · Велика Британія</option><option value="af_heart">Heart · рекомендуємо · жіночий · США</option><option value="browser">Голос пристрою · швидкий старт</option></select></label>
 <p class="format-note">Усі три голоси працюють без встановлення програм і використовують одну модель. Уперше браузер автоматично підвантажує модель ≈93 МБ і службові файли та зберігає їх у кеші, якщо дозволяє сховище. На телефоні підготовка може тривати довше. Звук може трохи відрізнятися від Voicebox через компактну версію моделі.</p>
 <div class="editor-actions"><button class="primary" type="submit">Зберегти</button><button class="ghost" type="button" data-action="voice-browser">Обрати голос пристрою</button><button class="ghost" type="button" data-action="voice-clear">Очистити кеш аудіо</button></div>
 <p class="format-note">Готові записи зберігаються в цьому браузері. Очищення кешу аудіо не видаляє слова, прогрес або модель голосу. На старіших пристроях можна обрати голос пристрою — він не потребує цієї AI-моделі.</p></form></details></section>
@@ -316,7 +398,7 @@ function restoreSession(value){const valid=validateSession(value);if(!valid)retu
 function saveUi(){uiPreferences.collectionsCollapsed=collectionsCollapsed;try{localStorage.setItem(UI_KEY,JSON.stringify(uiPreferences))}catch{}}
 function toast(message,bad=false){$('#app-status').textContent=message;$('#app-status').className='app-status '+(bad?'bad':'');}
 function lookFor(id){const value=collectionLooks[id]||{};return {color:Object.hasOwn(PALETTES,value.color)?value.color:'violet',icon:ICONS.includes(value.icon)?value.icon:id==='builtin'?'▤':id==='example'?'↔':'♡'}}
-function collectionStyle(id){const p=PALETTES[lookFor(id).color];return `--collection-accent:${p.ink};--collection-pale:${p.pale};--collection-line:${p.line}`}
+function collectionStyle(id){const color=lookFor(id).color,p=PALETTES[color],dark={violet:['#c7a5e7','#33283e'],pink:['#e6abc8','#3d2935'],blue:['#a9c1e9','#273244'],green:['#a0d0b5','#24382d'],amber:['#dfc489','#3c3324'],rose:['#efaabd','#402932']}[color];return `--collection-accent:${p.ink};--collection-pale:${p.pale};--collection-line:${p.line};--collection-dark-accent:${dark[0]};--collection-dark-pale:${dark[1]}`}
 function wordMiniTools(w,editing=true){const star=statFor(w.id).starred;return `<div class="word-mini-tools"><button class="icon-button ${star?'is-starred':''}" type="button" data-action="star" data-word="${esc(w.id)}" aria-pressed="${star}" aria-label="${star?'Прибрати зі складних':'Додати до складних'}">${star?'★':'☆'}</button><button class="icon-button" type="button" data-action="speak" data-word="${esc(w.id)}" aria-label="Прослухати англійською"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg></button>${editing?`<button class="icon-button" type="button" data-action="edit-word" data-word="${esc(w.id)}" aria-label="Редагувати слово">✎</button>`:''}</div>`}
 function renderManagedWords(){return listWords().map(w=>`<li><span><strong>${esc(w.en)}</strong> — ${esc(w.ua)}${w.def?`<small>${esc(w.def)}</small>`:''}</span>${wordMiniTools(w)}${userList()?`<button class="ghost" type="button" data-action="remove-word" data-word="${esc(w.id)}">Видалити</button>`:''}</li>`).join('')}
 function renderStudyChrome(){if(!appReady)return;const all=allWordRefs(),starred=all.filter(w=>statFor(w.id).starred).length,due=all.filter(isDue).length,reviewed=all.filter(w=>statFor(w.id).lastAnswered).length;$('#study-stats').textContent=`Повторено: ${reviewed} · Складних: ${starred} · На сьогодні: ${due}`;$('#starred-quick').textContent=`★ Складні (${starred})`;$('#due-quick').textContent=`↻ На сьогодні (${due})`;$('#practice-list').textContent=config.ids.length>1?`Мікс · ${config.ids.length} колекції`:listTitle();$('#focus-toggle').setAttribute('aria-pressed',String(!!uiPreferences.focusMode));$('#focus-toggle').textContent=uiPreferences.focusMode?'↙ Вийти з фокусу':'◎ Фокус';document.body.classList.toggle('focus-mode',!!uiPreferences.focusMode);$('#focus-exit').hidden=!uiPreferences.focusMode;$('#resume-note').hidden=!resumed;$('#resume-note-text').textContent=resumed?`Продовжуємо: ${modeInfo[state.mode][0]} · ${config.ids.length>1?'мікс колекцій':listTitle()}`:'';$('#look-color').value=lookFor(selectedList).color;$('#look-icon').value=lookFor(selectedList).icon;$('#look-form').hidden=!allLists().length;$('#scope-label').textContent=(config.filter==='all'?'Усі слова':config.filter==='starred'?'Лише складні':config.filter==='due'?'Нові та на повторення':config.filter==='retry'?'Повторення помилок':'Слова з останньою помилкою')+(config.limit?` · до ${config.limit}`:'');}
@@ -359,6 +441,28 @@ function renderReview(){if(!state.review)makeReview();const r=state.review;if(!r
 function render(){if(voiceBusy)stopSpeech();if(!allLists().length){$('#workspace').innerHTML=heading('Твоя перша колекція','Створи колекцію, щоб почати.')+'<button class="primary" data-action="new-list">＋ Нова колекція</button>'}else if(!WORDS.length){const message=state.mode==='context'?'Немає речень для цього тренування. Додай речення до слів через ✎ у списку або обери початкову колекцію.':config.filter==='starred'?'Поки немає складних слів. Познач їх зірочкою у картках або списку.':config.filter==='due'?'На сьогодні все повторено. Можна вибрати інші слова.':config.filter==='mistakes'||config.filter==='retry'?'Слів для повторення помилок немає.':'Для цих налаштувань немає слів. Додай слова або зміни тип карток і фільтр.';$('#workspace').innerHTML=heading('Поки порожньо',message)+'<div class="controls"><button class="secondary" data-action="all-words">Показати всі слова</button><button class="ghost" data-mode="list">До списку</button></div>'}else if(!state.deck&&state.mode!=='list'){$('#workspace').innerHTML=heading('Знайомство зі словами','Обери формат карток або відкрий увесь список.')+'<div class="controls"><button class="primary" data-deck="uk">Почати з карток ↗</button><button class="ghost" data-mode="list">Переглянути слова</button></div>'}else{({cards:renderCards,list:renderWordList,match:renderMatch,quiz:renderQuiz,type:renderType,dictation:renderType,context:renderType,build:renderBuild,review:renderReview})[state.mode]()}renderStudyChrome();scheduleCardTextLayout();persistSoon()}
 function advance(){stopSpeech();state.index++;state.flipped=false;clearQuestion();render()}
 function captureDraft(){const table=$('.word-table-scroll');if(table&&state.mode==='list')state.listScroll=table.scrollTop;const input=$('#typed');if(input&&['type','dictation','context'].includes(state.mode)&&!state.answered)state.typeValue=input.value}
+// BEGIN WORDLAB THEME
+const THEME_KEY='wordlab.theme.v1';
+const themeMedia=window.matchMedia('(prefers-color-scheme: dark)');
+let themePreference='system';
+try{const saved=localStorage.getItem(THEME_KEY);if(['system','light','dark'].includes(saved))themePreference=saved}catch{}
+function applyTheme(preference=themePreference,persist=false){
+  themePreference=['system','light','dark'].includes(preference)?preference:'system';
+  const resolved=themePreference==='system'?(themeMedia.matches?'dark':'light'):themePreference;
+  document.documentElement.dataset.theme=resolved;
+  document.documentElement.dataset.themePreference=themePreference;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content',resolved==='dark'?'#151119':'#f6f3f7');
+  const picker=document.querySelector('#theme-select');if(picker)picker.value=themePreference;
+  if(persist)try{localStorage.setItem(THEME_KEY,themePreference)}catch{}
+}
+document.addEventListener('change',event=>{if(event.target.id==='theme-select')applyTheme(event.target.value,true)});
+const followSystemTheme=()=>{if(themePreference==='system')applyTheme()};
+if(themeMedia.addEventListener)themeMedia.addEventListener('change',followSystemTheme);
+else themeMedia.addListener?.(followSystemTheme);
+window.addEventListener('storage',event=>{if(event.key===THEME_KEY||event.key===null)applyTheme(event.newValue||'system')});
+applyTheme();
+// END WORDLAB THEME
+
 // BEGIN WORDLAB ONYX
 // The Onyx worker and model load only after an explicit speech button.
 const VOICE_SETTINGS_KEY='wordlab.voicebox.v1'; // Migrate the previous local provider automatically.
@@ -388,10 +492,10 @@ function generateVoice(settings,text,signal){return new Promise((resolve,reject)
 async function playVoiceBlob(blob,slow,request,settings){const name=voiceName(settings);if(request!==voiceRequest)return;voiceObjectURL=URL.createObjectURL(blob);const audio=new Audio(voiceObjectURL);voiceAudio=audio;audio.playbackRate=slow?.75:1;audio.preservesPitch=true;const finish=()=>{if(request!==voiceRequest)return;$('#voice-play-ready').hidden=true;voiceActiveKey=null;voiceStatus(name+' · можна прослухати ще раз.');audio.onended=audio.onerror=audio.onplaying=null;if(voiceObjectURL){URL.revokeObjectURL(voiceObjectURL);voiceObjectURL=null}voiceAudio=null};audio.onended=finish;audio.onplaying=()=>{if(request!==voiceRequest)return;$('#voice-play-ready').hidden=true;voiceStatus(name+(slow?' · слухай повільніше…':' · слухай…'),true)};audio.onerror=()=>{if(request!==voiceRequest)return;finish();voiceStatus('Не вдалося відтворити аудіо. Спробуй ще раз.',false,true)};try{await audio.play()}catch(error){if(request!==voiceRequest)return;if(error.name==='NotAllowedError'){$('#voice-play-ready').hidden=false;voiceStatus('Аудіо готове. Натисни «Відтворити запис».')}else{finish();throw Error('Не вдалося відтворити аудіо. Спробуй ще раз.')}}}
 function speakBrowserWord(w,slow,request){if(!speechSupported()){voiceStatus('Цей браузер не надав голос пристрою. Обери Onyx або відкрий інший браузер.',false,true);return}const synth=window.speechSynthesis,utterance=new SpeechSynthesisUtterance(primaryEnglish(w)),voices=synth.getVoices().filter(v=>/^en(?:-|_)/i.test(v.lang));utterance.voice=voices.find(v=>v.localService&&/^en-US$/i.test(v.lang))||voices.find(v=>v.localService)||voices.find(v=>/^en-US$/i.test(v.lang))||voices[0]||null;utterance.lang=utterance.voice?.lang||'en-US';utterance.rate=slow?.7:.95;utterance.onstart=()=>{if(request===voiceRequest)voiceStatus('Голос пристрою · слухай…',true)};utterance.onend=()=>{if(request===voiceRequest)voiceStatus('Можна прослухати ще раз.')};utterance.onerror=e=>{if(request===voiceRequest&&!['interrupted','canceled'].includes(e.error))voiceStatus('Англійський голос браузера недоступний.',false,true)};voiceStatus('Готуємо голос пристрою…',true);synth.speak(utterance)}
 async function speakWord(w,slow=false){if(!w)return;const settings={...voiceSettings},text=primaryEnglish(w),key=voiceCacheKey(settings,text);if(voiceBusy&&voiceActiveKey===key&&!voiceAudio)return;stopSpeech();voiceActiveKey=key;const request=voiceRequest,epoch=voiceCacheEpoch;if(settings.provider==='browser'){speakBrowserWord(w,slow,request);return}const controller=new AbortController();voiceAbort=controller;voiceStatus('Шукаємо збережене аудіо…',true);try{let blob=await cachedVoice(key);if(request!==voiceRequest)return;if(!blob){voiceStatus('Генеруємо '+voiceName(settings)+'… Перший запуск може тривати довше.',true);blob=await generateVoice(settings,text,controller.signal);if(request!==voiceRequest)return;await saveVoiceCache(key,blob,epoch)}if(request!==voiceRequest)return;await playVoiceBlob(blob,slow,request,settings)}catch(error){if(request===voiceRequest&&error.name!=='AbortError')voiceStatus(error.message||'Не вдалося озвучити слово.',false,true)}finally{if(request===voiceRequest){voiceAbort=null;if(!voiceAudio)voiceActiveKey=null}}}
-function populateVoiceForm(){const provider=$('#voice-provider');if(!provider)return;const id=voiceChoice(voiceSettings),voice=KOKORO_VOICES[id];provider.value=voiceSettings.provider==='browser'?'browser':id;$('#voice-provider-label').textContent=voiceSettings.provider==='browser'?'Голос пристрою':voice.name+' · '+voice.accent}
+function populateVoiceForm(){const provider=$('#voice-provider');if(!provider)return;const id=voiceChoice(voiceSettings),voice=KOKORO_VOICES[id];provider.value=voiceSettings.provider==='browser'?'browser':id;$('#voice-provider-label').textContent=voiceSettings.provider==='browser'?'Голос пристрою':voice.name+' · '+voice.accent+(id==='af_heart'?' · рекомендуємо':'')}
 function saveVoiceSettings(){const selected=$('#voice-provider').value;stopSpeech(selected==='browser');voiceSettings={provider:selected==='browser'?'browser':'onyx',voice:selected==='browser'?voiceChoice(voiceSettings):voiceChoice({voice:selected})};try{localStorage.setItem(VOICE_SETTINGS_KEY,JSON.stringify(voiceSettings))}catch{}populateVoiceForm();voiceStatus(voiceSettings.provider==='onyx'?'Обрано '+voiceName()+'. Натисни 🔊, щоб прослухати.':'Обрано голос пристрою.')}
 document.addEventListener('submit',event=>{if(event.target.id==='voice-settings-form'){event.preventDefault();saveVoiceSettings()}});
-document.addEventListener('click',event=>{const button=event.target.closest('button');if(!button||button.disabled)return;const action=button.dataset.action;if(action==='voice-play-ready'&&voiceAudio){voiceAudio.play().catch(()=>voiceStatus('Браузер не дозволив звук. Перевір налаштування аудіо.',false,true));return}if(action==='voice-test')speakWord({en:'Reliability. Connectivity. Interoperability.'});if(action==='voice-stop')stopSpeech(true);if(action==='voice-clear')clearVoiceCache();if(action==='voice-browser'){stopSpeech(true);voiceSettings={provider:'browser',voice:voiceChoice(voiceSettings)};try{localStorage.setItem(VOICE_SETTINGS_KEY,JSON.stringify(voiceSettings))}catch{}populateVoiceForm();voiceStatus('Обрано голос пристрою. Можна повернутися до AI-голосів у налаштуваннях.')}});
+document.addEventListener('click',event=>{const button=event.target.closest('button');if(!button||button.disabled)return;const action=button.dataset.action;if(action==='voice-play-ready'&&voiceAudio){voiceAudio.play().catch(()=>voiceStatus('Браузер не дозволив звук. Перевір налаштування аудіо.',false,true));return}if(action==='voice-heart'){$('#voice-provider').value='af_heart';saveVoiceSettings();return}if(action==='voice-test')speakWord({en:'Reliability. Connectivity. Interoperability.'});if(action==='voice-stop')stopSpeech(true);if(action==='voice-clear')clearVoiceCache();if(action==='voice-browser'){stopSpeech(true);voiceSettings={provider:'browser',voice:voiceChoice(voiceSettings)};try{localStorage.setItem(VOICE_SETTINGS_KEY,JSON.stringify(voiceSettings))}catch{}populateVoiceForm();voiceStatus('Обрано голос пристрою. Можна повернутися до AI-голосів у налаштуваннях.')}});
 window.addEventListener('pagehide',disposeOnyxWorker);
 // END WORDLAB ONYX
 
