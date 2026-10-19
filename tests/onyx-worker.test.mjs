@@ -69,3 +69,19 @@ test('load failure can be retried and malformed jobs cannot start a download', a
   assert.equal(attempts, 2);
   assert.equal(messages.filter(x => x.type === 'error').length, 2);
 });
+
+test('all three favorite voices use their actual IDs with one shared model', async () => {
+  let loads = 0;
+  const voices = [], messages = [];
+  const handle = createOnyxWorker({ send: m => messages.push(m), loadModule: async () => ({ env: {}, KokoroTTS: { async from_pretrained() { loads++; return { async generate(text, { voice }) { voices.push(voice); return { audio: new Float32Array([0]), sampling_rate: 24000 }; } }; } } }) });
+  handle({ id: 0, text: 'test', voice: 'unknown' });
+  await tick();
+  assert.equal(loads, 0);
+  for (const [index, voice] of ['am_onyx', 'bm_george', 'af_heart'].entries()) {
+    handle({ id: index + 1, text: 'test', voice });
+    await tick();
+  }
+  assert.equal(loads, 1);
+  assert.deepEqual(voices, ['am_onyx', 'bm_george', 'af_heart']);
+  assert.equal(messages.filter(m => m.type === 'audio').length, 3);
+});

@@ -43,7 +43,7 @@ test('bootstrap loads no worker/model and migrates local Voicebox settings', () 
 test('Onyx worker respects GitHub Pages subpath and cache reuses audio at slow speed', async () => {
   const app = setup();
   await app.api.speakWord({ en: 'capacity' });
-  assert.equal(app.workers[0].url.href, 'https://bulka0801.github.io/WordLab/onyx-worker.mjs');
+  assert.equal(app.workers[0].url.href, 'https://bulka0801.github.io/WordLab/onyx-worker.mjs?v=2');
   assert.equal(app.workers[0].options.type, 'module');
   assert.equal(app.played.length, 1);
   app.played[0].onended();
@@ -117,4 +117,41 @@ test('full app parses and settings no longer contain a local server or profile f
   new vm.Script(html.match(/<script>([\s\S]*?)<\/script>/)[1]);
   assert.doesNotMatch(html, /id="voice-(?:base|profile|check)"/);
   assert.doesNotMatch(html, /Start-WordLab|127\.0\.0\.1:1749/);
+});
+
+test('George and Heart persist and use separate audio caches while sharing a worker', async () => {
+  const app = setup();
+  for (const voice of ['am_onyx', 'bm_george', 'af_heart', 'am_onyx']) {
+    app.node('#voice-provider').value = voice;
+    app.api.saveVoiceSettings();
+    await app.api.speakWord({ en: 'network' });
+  }
+  assert.equal(app.workers.length, 1);
+  assert.deepEqual(app.workers[0].jobs.filter(x => x.type === 'generate').map(x => x.voice), ['am_onyx', 'bm_george', 'af_heart']);
+  app.node('#voice-provider').value = 'bm_george';
+  app.api.saveVoiceSettings();
+  assert.match(app.node('#voice-provider-label').textContent, /George.*британська/);
+  const saved = JSON.parse(app.values.get('wordlab.voicebox.v1'));
+  const reopened = setup({ initial: saved });
+  assert.equal(reopened.api.settings.voice, 'bm_george');
+  assert.equal(reopened.node('#voice-provider').value, 'bm_george');
+  app.api.stopSpeech();
+});
+
+test('changing the voice cancels pending old audio and keeps the device fallback preference', async () => {
+  const app = setup({ run() {} });
+  const first = app.api.speakWord({ en: 'network' });
+  while (!app.workers.length) await new Promise(resolve => setImmediate(resolve));
+  const id = app.workers[0].jobs[0].id;
+  app.node('#voice-provider').value = 'af_heart';
+  app.api.saveVoiceSettings();
+  app.workers[0].emit({ id, type: 'audio', buffer: new ArrayBuffer(46) });
+  await first;
+  assert.equal(app.played.length, 0);
+  assert.equal(app.api.settings.voice, 'af_heart');
+  app.node('#voice-provider').value = 'browser';
+  app.api.saveVoiceSettings();
+  const reopened = setup({ initial: JSON.parse(app.values.get('wordlab.voicebox.v1')) });
+  assert.equal(reopened.api.settings.provider, 'browser');
+  assert.equal(reopened.api.settings.voice, 'af_heart');
 });
